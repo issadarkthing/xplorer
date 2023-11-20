@@ -1,11 +1,30 @@
+"use client";
+import { listDirectory } from "@/actions/listDirectory";
 import { File } from "@/models/File";
+import { useEffect, useState } from "react";
+import path from "path";
 
-interface FileBrowserProps {
-    parentFiles: File[];
-    files: File[];
-}
+export function FileBrowser() {
+    const [filepath, setFilepath] = useState("/home/terra");
+    const [files, setFiles] = useState<File[]>([]);
 
-export function FileBrowser({ files }: FileBrowserProps) {
+    useEffect(() => {
+        (async () => {
+            setFiles(await listDirectory(filepath));
+        })();
+    }, [filepath]);
+
+    const onEnterDirectory =
+        (file: File) => (e: React.MouseEvent<HTMLButtonElement>) => {
+            if (e.detail === 2 && file.isDirectory) {
+                setFilepath(path.join(filepath, file.name));
+            }
+        };
+
+    const onMoveUpDirectory = () => {
+        setFilepath(path.join(filepath, ".."));
+    };
+
     return (
         <div className="flex w-full">
             <div className="w-1/6 p-10 border-r border-slate-800">
@@ -15,20 +34,31 @@ export function FileBrowser({ files }: FileBrowserProps) {
                     </span>
                 </h1>
             </div>
-            <div className="flex flex-wrap m-5">
-                {files.map((file) => (
-                    <div
-                        className="hover:bg-slate-800 flex flex-col justify-center items-center h-40 w-40 m-2 p-4 border-slate-800 rounded-2xl"
-                        key={file.name}
-                    >
-                        {file.isDirectory ? <IconFolder /> : <IconFile />}
-                        <div className="w-24 flex flex-row justify-center">
-                            <span className="text-slate-200 text-ellipsis overflow-hidden">
-                                {file.name}
-                            </span>
-                        </div>
-                    </div>
-                ))}
+            <div className="flex flex-col">
+                <div className="flex w-full h-12 items-center px-5 mt-5 gap-10">
+                    <button onClick={onMoveUpDirectory}>
+                        <IconBack />
+                    </button>
+                    <span className="text-slate-200 font-mono text-lg">
+                        {filepath}
+                    </span>
+                </div>
+                <div className="flex flex-wrap m-5">
+                    {files.map((file) => (
+                        <button
+                            onClick={onEnterDirectory(file)}
+                            className="hover:bg-slate-800 flex flex-col justify-center items-center h-40 w-40 m-2 p-4 border-slate-800 rounded-2xl"
+                            key={file.name}
+                        >
+                            {file.isDirectory ? <IconFolder /> : <IconFile />}
+                            <div className="w-24 flex flex-row justify-center">
+                                <span className="text-slate-200 text-ellipsis overflow-hidden">
+                                    {file.name}
+                                </span>
+                            </div>
+                        </button>
+                    ))}
+                </div>
             </div>
         </div>
     );
@@ -89,6 +119,25 @@ function IconSearch() {
         >
             <circle cx="11" cy="11" r="8" />
             <path d="m21 21-4.3-4.3" />
+        </svg>
+    );
+}
+
+function IconBack() {
+    return (
+        <svg
+            className="w-6 h-6 text-slate-200"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
+            />
         </svg>
     );
 }
