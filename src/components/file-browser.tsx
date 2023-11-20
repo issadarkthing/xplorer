@@ -1,6 +1,8 @@
+import { File } from "@/models/File";
+
 interface FileBrowserProps {
-    parentFiles: string[];
-    files: string[];
+    parentFiles: File[];
+    files: File[];
 }
 
 export function FileBrowser({ files }: FileBrowserProps) {
@@ -16,13 +18,13 @@ export function FileBrowser({ files }: FileBrowserProps) {
             <div className="flex flex-wrap m-5">
                 {files.map((file) => (
                     <div
-                        className="flex flex-col justify-center items-center h-40 w-40 m-2 p-4 border-slate-800 rounded-lg"
-                        key={file}
+                        className="hover:bg-slate-800 flex flex-col justify-center items-center h-40 w-40 m-2 p-4 border-slate-800 rounded-2xl"
+                        key={file.name}
                     >
-                        <IconFile />
+                        {file.isDirectory ? <IconFolder /> : <IconFile />}
                         <div className="w-24 flex flex-row justify-center">
                             <span className="text-slate-200 text-ellipsis overflow-hidden">
-                                {file}
+                                {file.name}
                             </span>
                         </div>
                     </div>
@@ -35,14 +37,14 @@ export function FileBrowser({ files }: FileBrowserProps) {
 function IconFolder() {
     return (
         <svg
-            className="mr-3 h-6 w-6 text-gray-500"
+            className="h-24 w-24 text-amber-100"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            fill="none"
+            fill="currentColor"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="1"
             strokeLinecap="round"
             strokeLinejoin="round"
         >
@@ -54,14 +56,14 @@ function IconFolder() {
 function IconFile() {
     return (
         <svg
-            className="h-24 w-24 text-gray-500"
+            className="h-24 w-24 text-slate-200"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="1"
             strokeLinecap="round"
             strokeLinejoin="round"
         >
