@@ -27,7 +27,7 @@ export function FileBrowser() {
 
     return (
         <div className="flex w-full">
-            <div className="w-1/6 p-10 border-r border-slate-800">
+            <div className="p-10 border-r border-slate-800">
                 <h1 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
                     <span className="text-transparent bg-clip-text bg-gradient-to-r to-red-600 from-cyan-400">
                         XPLORER
@@ -36,7 +36,10 @@ export function FileBrowser() {
             </div>
             <div className="flex flex-col">
                 <div className="flex w-full h-12 items-center px-5 mt-5 gap-10">
-                    <button onClick={onMoveUpDirectory}>
+                    <button
+                        className="border border-slate-800 hover:bg-slate-800 rounded-lg px-4 py-2"
+                        onClick={onMoveUpDirectory}
+                    >
                         <IconBack />
                     </button>
                     <span className="text-slate-200 font-mono text-lg">
