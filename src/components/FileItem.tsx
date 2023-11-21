@@ -10,7 +10,7 @@ export default function FileItem({ file, onClick }: FileItemProps) {
     return (
         <button
             onClick={(e) => onClick(e, file)}
-            className="group hover:bg-slate-800 flex flex-col justify-center items-center h-40 w-40 m-2 p-4 border-slate-800 rounded-2xl"
+            className="transition-transform transform hover:scale-110 ease-in delay-10 group hover:bg-slate-800 flex flex-col justify-center items-center h-40 w-40 m-2 p-4 border-slate-800 rounded-2xl"
             key={file.name}
         >
             {file.isDirectory ? <IconFolder /> : <Icon filename={file.name} />}
