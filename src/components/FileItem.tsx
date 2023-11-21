@@ -10,11 +10,11 @@ export default function FileItem({ file, onClick }: FileItemProps) {
     return (
         <button
             onClick={(e) => onClick(e, file)}
-            className="hover:bg-slate-800 flex flex-col justify-center items-center h-40 w-40 m-2 p-4 border-slate-800 rounded-2xl"
+            className="group hover:bg-slate-800 flex flex-col justify-center items-center h-40 w-40 m-2 p-4 border-slate-800 rounded-2xl"
             key={file.name}
         >
             {file.isDirectory ? <IconFolder /> : <Icon filename={file.name} />}
-            <div className="w-24 whitespace-nowrap text-ellipsis overflow-hidden text-slate-200">
+            <div className="group-hover:whitespace-normal group-hover:overflow-visible w-24 whitespace-nowrap text-ellipsis overflow-hidden text-slate-200">
                 <span>{file.name}</span>
             </div>
         </button>
