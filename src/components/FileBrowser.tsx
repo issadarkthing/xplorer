@@ -1,5 +1,6 @@
 "use client";
 import { listDirectory } from "@/actions/listDirectory";
+import { openFile } from "@/actions/openFile";
 import { File } from "@/models/File";
 import { useEffect, useState } from "react";
 import path from "path";
@@ -18,6 +19,8 @@ export function FileBrowser() {
         (file: File) => (e: React.MouseEvent<HTMLButtonElement>) => {
             if (e.detail === 2 && file.isDirectory) {
                 setFilepath(path.join(filepath, file.name));
+            } else if (e.detail === 2 && !file.isDirectory) {
+                openFile(path.join(filepath, file.name));
             }
         };
 
@@ -54,10 +57,8 @@ export function FileBrowser() {
                             key={file.name}
                         >
                             {file.isDirectory ? <IconFolder /> : <IconFile />}
-                            <div className="w-24 flex flex-row justify-center">
-                                <span className="text-slate-200 text-ellipsis overflow-hidden">
-                                    {file.name}
-                                </span>
+                            <div className="w-24 whitespace-nowrap text-ellipsis overflow-hidden text-slate-200">
+                                <span>{file.name}</span>
                             </div>
                         </button>
                     ))}
@@ -112,7 +113,6 @@ function IconSearch() {
             className="h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
-            height="24"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
