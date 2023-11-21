@@ -63,9 +63,9 @@ export function FileBrowser({ homedir }: FileBrowserProps) {
             </div>
             <div className="flex flex-col w-full">
                 <FileSearch onChange={onQueryChange} />
-                <div className="flex w-full h-12 items-center px-5 mt-5 gap-10">
+                <div className="flex w-full h-12 items-center px-5 mt-5 gap-5">
                     <button
-                        className="border border-slate-800 hover:bg-slate-800 rounded-lg px-4 py-2"
+                        className="ml-6 border-slate-800 hover:bg-slate-800 rounded-lg px-4 py-2"
                         onClick={onMoveUpDirectory}
                     >
                         <IconBack />
@@ -91,18 +91,14 @@ export function FileBrowser({ homedir }: FileBrowserProps) {
 function IconBack() {
     return (
         <svg
-            className="w-6 h-6 text-slate-200"
             xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
+            className="w-5 h-5 text-slate-200"
+            fill="currentColor"
+            strokeWidth="2"
             stroke="currentColor"
+            viewBox="0 0 448 512"
         >
-            <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
-            />
+            <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
         </svg>
     );
 }
