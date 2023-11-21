@@ -1,6 +1,7 @@
 "use client";
 import { listDirectory } from "@/actions/listDirectory";
 import { openFile } from "@/actions/openFile";
+import FileItem from "@/components/FileItem";
 import { File } from "@/models/File";
 import { useEffect, useState } from "react";
 import path from "path";
@@ -15,14 +16,16 @@ export function FileBrowser() {
         })();
     }, [filepath]);
 
-    const onEnterDirectory =
-        (file: File) => (e: React.MouseEvent<HTMLButtonElement>) => {
-            if (e.detail === 2 && file.isDirectory) {
-                setFilepath(path.join(filepath, file.name));
-            } else if (e.detail === 2 && !file.isDirectory) {
-                openFile(path.join(filepath, file.name));
-            }
-        };
+    const onEnterDirectory = (
+        e: React.MouseEvent<HTMLButtonElement>,
+        file: File
+    ) => {
+        if (e.detail === 2 && file.isDirectory) {
+            setFilepath(path.join(filepath, file.name));
+        } else if (e.detail === 2 && !file.isDirectory) {
+            openFile(path.join(filepath, file.name));
+        }
+    };
 
     const onMoveUpDirectory = () => {
         setFilepath(path.join(filepath, ".."));
@@ -51,59 +54,15 @@ export function FileBrowser() {
                 </div>
                 <div className="flex flex-wrap m-5">
                     {files.map((file) => (
-                        <button
-                            onClick={onEnterDirectory(file)}
-                            className="hover:bg-slate-800 flex flex-col justify-center items-center h-40 w-40 m-2 p-4 border-slate-800 rounded-2xl"
+                        <FileItem
                             key={file.name}
-                        >
-                            {file.isDirectory ? <IconFolder /> : <IconFile />}
-                            <div className="w-24 whitespace-nowrap text-ellipsis overflow-hidden text-slate-200">
-                                <span>{file.name}</span>
-                            </div>
-                        </button>
+                            file={file}
+                            onClick={onEnterDirectory}
+                        />
                     ))}
                 </div>
             </div>
         </div>
-    );
-}
-
-function IconFolder() {
-    return (
-        <svg
-            className="h-24 w-24 text-amber-100"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            stroke="currentColor"
-            strokeWidth="1"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z" />
-        </svg>
-    );
-}
-
-function IconFile() {
-    return (
-        <svg
-            className="h-24 w-24 text-slate-200"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-            <polyline points="14 2 14 8 20 8" />
-        </svg>
     );
 }
 
