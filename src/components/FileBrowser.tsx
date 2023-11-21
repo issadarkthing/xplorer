@@ -6,8 +6,12 @@ import { File } from "@/models/File";
 import { useEffect, useState } from "react";
 import path from "path";
 
-export function FileBrowser() {
-    const [filepath, setFilepath] = useState("/home/terra");
+interface FileBrowserProps {
+    homedir: string;
+}
+
+export function FileBrowser({ homedir }: FileBrowserProps) {
+    const [filepath, setFilepath] = useState(homedir);
     const [files, setFiles] = useState<File[]>([]);
 
     useEffect(() => {
