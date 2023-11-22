@@ -27,7 +27,9 @@ function Icon({ filename }: { filename: string }) {
         //@ts-ignore
         const iconClass: string = window.FileIcons.getClassWithColor(filename);
 
-        return <p className={`${iconClass} text-slate-200`} />;
+        if (iconClass) {
+            return <p className={`${iconClass} text-slate-200`} />;
+        }
     }
 
     const extension = path.extname(filename);
@@ -51,7 +53,7 @@ function Icon({ filename }: { filename: string }) {
 function IconVideo() {
     return (
         <svg
-            className="h-24 w-24 text-sky-500"
+            className="h-16 w-16 text-sky-500"
             fill="currentColor"
             stroke="currentColor"
             xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +68,7 @@ function IconVideo() {
 function IconImage() {
     return (
         <svg
-            className="h-24 w-24 text-sky-500"
+            className="h-16 w-16 text-sky-500"
             fill="currentColor"
             stroke="currentColor"
             xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +83,7 @@ function IconImage() {
 function IconPDF() {
     return (
         <svg
-            className="h-24 w-24 text-red-500"
+            className="h-16 w-16 text-red-500"
             fill="currentColor"
             stroke="currentColor"
             xmlns="http://www.w3.org/2000/svg"
@@ -96,10 +98,8 @@ function IconPDF() {
 function IconFolder() {
     return (
         <svg
-            className="h-24 w-24 text-amber-100"
+            className="h-16 w-16 text-amber-100"
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
             viewBox="0 0 24 24"
             fill="currentColor"
             stroke="currentColor"
@@ -115,7 +115,7 @@ function IconFolder() {
 function IconFile() {
     return (
         <svg
-            className="h-24 w-24 text-slate-200"
+            className="h-16 w-16 text-slate-200"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
