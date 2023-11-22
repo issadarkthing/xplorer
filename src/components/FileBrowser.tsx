@@ -53,7 +53,7 @@ export function FileBrowser({ homedir }: FileBrowserProps) {
     };
 
     return (
-        <div className="flex w-full">
+        <div className="flex w-full min-h-screen">
             <div className="p-10 border-r border-slate-800">
                 <h1 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
                     <span className="text-transparent bg-clip-text bg-gradient-to-r to-red-600 from-cyan-400">
