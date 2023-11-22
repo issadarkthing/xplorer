@@ -16,6 +16,10 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
+            <head>
+                <link href="/file-icons.css" rel="stylesheet" />
+                <script src="/file-icons.js" />
+            </head>
             <body className={inter.className}>
                 <main className="bg-slate-900 min-h-screen">{children}</main>
             </body>

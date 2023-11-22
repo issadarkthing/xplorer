@@ -22,6 +22,14 @@ export default function FileItem({ file, onClick }: FileItemProps) {
 }
 
 function Icon({ filename }: { filename: string }) {
+    //@ts-ignore
+    if (window.FileIcons != undefined) {
+        //@ts-ignore
+        const iconClass: string = window.FileIcons.getClassWithColor(filename);
+
+        return <p className={`${iconClass} text-slate-200`} />;
+    }
+
     const extension = path.extname(filename);
 
     switch (extension) {
